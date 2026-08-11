@@ -10,28 +10,11 @@ function DashboardPage({ user, onLogout, onNavigate }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [serverInfo, setServerInfo] = useState(null);
 
-  // Mock data for Recharts
-  const consumptionData = [
-    { name: 'Jan', value: 4000 },
-    { name: 'Fev', value: 3000 },
-    { name: 'Mar', value: 2000 },
-    { name: 'Abr', value: 2780 },
-    { name: 'Mai', value: 1890 },
-    { name: 'Jun', value: 2390 },
-  ];
-
-  const revenueData = [
-    { name: 'Jan', value: 2400 },
-    { name: 'Fev', value: 1398 },
-    { name: 'Mar', value: 9800 },
-    { name: 'Abr', value: 3908 },
-    { name: 'Mai', value: 4800 },
-    { name: 'Jun', value: 3800 },
-  ];
-
+  // Initial empty data for Recharts
+  const consumptionData = [];
+  const revenueData = [];
   const defaultData = [
-    { name: 'Pagos', value: 850 },
-    { name: 'Em Atraso', value: 150 },
+    { name: 'Sem dados', value: 1 }
   ];
 
   const COLORS = ['#10b981', '#ef4444'];
@@ -89,28 +72,28 @@ function DashboardPage({ user, onLogout, onNavigate }) {
               <div className="kpi-icon primary">👥</div>
               <div className="kpi-data">
                 <span className="kpi-label">Total de Consumidores</span>
-                <span className="kpi-value">12.450</span>
+                <span className="kpi-value">0</span>
               </div>
             </div>
             <div className="kpi-card">
               <div className="kpi-icon warning">📝</div>
               <div className="kpi-data">
                 <span className="kpi-label">Leituras Pendentes</span>
-                <span className="kpi-value">3.204</span>
+                <span className="kpi-value">0</span>
               </div>
             </div>
             <div className="kpi-card">
               <div className="kpi-icon danger">📄</div>
               <div className="kpi-data">
                 <span className="kpi-label">Faturas Vencidas</span>
-                <span className="kpi-value">842</span>
+                <span className="kpi-value">0</span>
               </div>
             </div>
             <div className="kpi-card">
               <div className="kpi-icon success">🔧</div>
               <div className="kpi-data">
                 <span className="kpi-label">Ordens de Serviço Abertas</span>
-                <span className="kpi-value">156</span>
+                <span className="kpi-value">0</span>
               </div>
             </div>
           </div>
@@ -217,32 +200,9 @@ function DashboardPage({ user, onLogout, onNavigate }) {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>104592-8</td>
-                      <td>João da Silva Sauro</td>
-                      <td>145</td>
-                      <td>Hoje, 14:30</td>
-                      <td><span className="badge success">Normal</span></td>
-                    </tr>
-                    <tr>
-                      <td>293847-1</td>
-                      <td>Maria Antonieta Paz</td>
-                      <td>89</td>
-                      <td>Hoje, 14:15</td>
-                      <td><span className="badge success">Normal</span></td>
-                    </tr>
-                    <tr>
-                      <td>482910-5</td>
-                      <td>Condomínio Águas Claras</td>
-                      <td>1.250</td>
-                      <td>Hoje, 13:50</td>
-                      <td><span className="badge warning">Alto</span></td>
-                    </tr>
-                    <tr>
-                      <td>573829-3</td>
-                      <td>Mercadinho do Bairro Ltda</td>
-                      <td>42</td>
-                      <td>Hoje, 11:20</td>
-                      <td><span className="badge success">Normal</span></td>
+                      <td colSpan="5" style={{ textAlign: 'center', padding: '1rem', color: '#64748b' }}>
+                        Nenhuma leitura registrada recentemente.
+                      </td>
                     </tr>
                   </tbody>
                 </table>

@@ -6,6 +6,9 @@ import { getDatabase } from '../database/init.js';
 import fs from 'fs';
 import path from 'path';
 
+import { UnidadeConsumidora } from '../database/models/UnidadeConsumidora.js';
+import { SyncQueue } from '../database/models/SyncQueue.js';
+
 let serverInstance = null;
 const CONFIG_PATH = path.join(process.cwd(), 'site_config.json');
 
@@ -113,34 +116,19 @@ export function startLocalServer() {
   });
 
   // Rota para buscar unidades consumidoras (Simulação de carga para o mobile)
-  app.get('/api/unidades', (req, res) => {
+  app.get('/api/unidades', async (req, res) => {
     try {
-      const db = getDatabase();
-      // Como ainda não temos uma tabela definitiva, retornamos um mock inicial
-      // Em breve puxaremos da tabela real
-      const mockUnidades = [
-        { id: 1, uc: '1001-0', nome: 'João da Silva', endereco: 'Rua A, 123', ultima_leitura: 150 },
-        { id: 2, uc: '1002-8', nome: 'Maria Oliveira', endereco: 'Av B, 456', ultima_leitura: 320 },
-        { id: 3, uc: '1003-6', nome: 'Supermercado Central', endereco: 'Praça C, 78', ultima_leitura: 1050 }
-      ];
-      
-      // Tentar buscar da tabela (caso já exista)
+      // Tentar buscar da coleção
       try {
-        const result = db.exec("SELECT * FROM unidades_consumidoras LIMIT 100");
-        if (result.length > 0) {
-          const cols = result[0].columns;
-          const ucs = result[0].values.map(vals => {
-            const row = {};
-            cols.forEach((c, i) => row[c] = vals[i]);
-            return row;
-          });
+        const ucs = await UnidadeConsumidora.find().limit(100).lean();
+        if (ucs && ucs.length > 0) {
           return res.json({ success: true, data: ucs });
         }
       } catch (e) {
-        // Tabela ainda não existe ou vazia, usa o mock
+        // Coleção vazia ou erro
       }
 
-      res.json({ success: true, data: mockUnidades });
+      res.json({ success: true, data: [] });
     } catch (error) {
       console.error('[Server] Erro ao buscar unidades:', error);
       res.status(500).json({ success: false, error: error.message });
@@ -148,17 +136,18 @@ export function startLocalServer() {
   });
 
   // Rota para salvar a leitura e gerar a fatura
-  app.post('/api/leitura', (req, res) => {
+  app.post('/api/leitura', async (req, res) => {
     try {
       const { uc, leitura_atual, consumo, valor_total } = req.body;
-      const db = getDatabase();
       
-      // Salvar na tabela de faturas/leituras
+      // Salvar na fila de sync (ou salvar direto no MongoDB real)
       try {
-        db.run(
-          "INSERT INTO sync_queue (table_name, record_id, operation, payload) VALUES (?, ?, ?, ?)",
-          ['faturas', Date.now().toString(), 'INSERT', JSON.stringify(req.body)]
-        );
+        await SyncQueue.create({
+          table_name: 'faturas',
+          record_id: Date.now().toString(),
+          operation: 'INSERT',
+          payload: JSON.stringify(req.body)
+        });
       } catch (e) {
         console.error('[Server] Falha ao salvar leitura na fila', e);
       }

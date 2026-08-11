@@ -1,7 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
 import { UserRepository } from '../database/repositories/userRepository.js';
-import { saveDatabase } from '../database/init.js';
+import { Session } from '../database/models/Session.js';
+import { AuditLog } from '../database/models/AuditLog.js';
+import { User } from '../database/models/User.js';
 
 export class AuthService {
   constructor(db) {
@@ -11,33 +13,34 @@ export class AuthService {
     this.currentSession = null;
   }
 
-  login(matricula, senha) {
+  async login(matricula, senha) {
     try {
-      const user = this.userRepo.findByMatricula(matricula);
+      const user = await this.userRepo.findByMatricula(matricula);
       if (!user) return { success: false, error: 'Usuário não encontrado ou inativo.' };
 
       const passwordValid = bcrypt.compareSync(senha, user.senha_hash);
       if (!passwordValid) {
-        this._logAudit(null, 'LOGIN_FAILED', `Tentativa falhou: ${matricula}`);
+        await this._logAudit(null, 'LOGIN_FAILED', `Tentativa falhou: ${matricula}`);
         return { success: false, error: 'Senha incorreta.' };
       }
 
-      this.userRepo.updateLastLogin(user.id);
+      await this.userRepo.updateLastLogin(user._id);
 
       const sessionToken = uuidv4();
-      const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-      this.db.run(
-        `INSERT INTO sessions (id, user_id, token, expires_at) VALUES (?, ?, ?, ?)`,
-        [uuidv4(), user.id, sessionToken, expiresAt]
-      );
-      saveDatabase();
+      const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      
+      await Session.create({
+        user_id: user._id,
+        token: sessionToken,
+        expires_at: expiresAt
+      });
 
       this.currentUser = {
-        id: user.id, nome: user.nome, matricula: user.matricula,
+        id: user._id, nome: user.nome, matricula: user.matricula,
         email: user.email, cargo: user.cargo
       };
       this.currentSession = sessionToken;
-      this._logAudit(user.id, 'LOGIN_SUCCESS', 'Login realizado');
+      await this._logAudit(user._id, 'LOGIN_SUCCESS', 'Login realizado');
 
       return { success: true, user: this.currentUser, token: sessionToken };
     } catch (error) {
@@ -46,47 +49,36 @@ export class AuthService {
     }
   }
 
-  logout() {
+  async logout() {
     if (this.currentSession) {
-      this.db.run('DELETE FROM sessions WHERE token = ?', [this.currentSession]);
-      saveDatabase();
-      this._logAudit(this.currentUser?.id, 'LOGOUT', 'Logout realizado');
+      await Session.deleteOne({ token: this.currentSession });
+      await this._logAudit(this.currentUser?.id, 'LOGOUT', 'Logout realizado');
     }
     this.currentUser = null;
     this.currentSession = null;
     return { success: true };
   }
 
-  checkSession(token) {
+  async checkSession(token) {
     if (!token) return { valid: false };
     try {
-      const stmt = this.db.prepare(`
-        SELECT s.user_id, s.expires_at, u.id as uid, u.nome, u.matricula, u.email, u.cargo
-        FROM sessions s JOIN users u ON s.user_id = u.id
-        WHERE s.token = ? AND u.ativo = 1
-      `);
-      stmt.bind([token]);
-      if (stmt.step()) {
-        const cols = stmt.getColumnNames();
-        const vals = stmt.get();
-        stmt.free();
-        const session = {};
-        cols.forEach((c, i) => session[c] = vals[i]);
+      const session = await Session.findOne({ token }).lean();
+      if (!session) return { valid: false };
 
-        if (new Date(session.expires_at) < new Date()) {
-          this.db.run('DELETE FROM sessions WHERE token = ?', [token]);
-          saveDatabase();
-          return { valid: false };
-        }
-        this.currentUser = {
-          id: session.uid, nome: session.nome, matricula: session.matricula,
-          email: session.email, cargo: session.cargo
-        };
-        this.currentSession = token;
-        return { valid: true, user: this.currentUser };
+      if (new Date(session.expires_at) < new Date()) {
+        await Session.deleteOne({ token });
+        return { valid: false };
       }
-      stmt.free();
-      return { valid: false };
+
+      const user = await User.findOne({ _id: session.user_id, ativo: 1 }).lean();
+      if (!user) return { valid: false };
+
+      this.currentUser = {
+        id: user._id, nome: user.nome, matricula: user.matricula,
+        email: user.email, cargo: user.cargo
+      };
+      this.currentSession = token;
+      return { valid: true, user: this.currentUser };
     } catch (error) {
       console.error('[Auth] Session check error:', error);
       return { valid: false };
@@ -95,15 +87,21 @@ export class AuthService {
 
   getCurrentUser() { return this.currentUser; }
 
-  _logAudit(userId, action, details) {
+  async _logAudit(userId, action, details) {
     try {
-      this.db.run(`INSERT INTO audit_log (user_id, action, details) VALUES (?, ?, ?)`, [userId, action, details]);
-      saveDatabase();
+      await AuditLog.create({
+        user_id: userId,
+        action: action,
+        details: details
+      });
     } catch (error) { console.error('[Audit] Log error:', error); }
   }
 
-  cleanupExpiredSessions() {
-    this.db.run("DELETE FROM sessions WHERE expires_at < datetime('now')");
-    saveDatabase();
+  async cleanupExpiredSessions() {
+    try {
+      await Session.deleteMany({ expires_at: { $lt: new Date() } });
+    } catch (e) {
+      // Ignorar erros
+    }
   }
 }

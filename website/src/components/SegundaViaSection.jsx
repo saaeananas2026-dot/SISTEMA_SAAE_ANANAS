@@ -6,16 +6,29 @@ function SegundaViaSection() {
   const [loading, setLoading] = useState(false);
   const [faturaPronta, setFaturaPronta] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!matricula) return;
     
     setLoading(true);
-    // Simula chamada de rede
-    setTimeout(() => {
+    setFaturaPronta(false);
+    
+    try {
+      // Faz a chamada real para o nosso servidor Node.js
+      const response = await fetch(`/api/faturas/${matricula}`);
+      const data = await response.json();
+      
+      if (data.success && data.fatura) {
+        setFaturaPronta(data.fatura);
+      } else {
+        alert(data.message || 'Fatura não encontrada.');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar fatura:', error);
+      alert('Erro de conexão ao buscar a fatura.');
+    } finally {
       setLoading(false);
-      setFaturaPronta(true);
-    }, 1500);
+    }
   };
 
   return (
@@ -58,7 +71,12 @@ function SegundaViaSection() {
                 <CheckCircle size={20} color="var(--color-success)" />
                 <div>
                   <strong>Fatura Encontrada!</strong>
-                  <a href="#" className="download-link">Clique aqui para baixar o PDF</a>
+                  <p style={{ margin: '4px 0', fontSize: '0.9rem', color: '#555' }}>
+                    Vencimento: {faturaPronta.vencimento} | Valor: R$ {faturaPronta.valor.toFixed(2)} | Status: {faturaPronta.status}
+                  </p>
+                  <a href="#" className="download-link" onClick={(e) => { e.preventDefault(); alert('Gerando PDF da Fatura...') }}>
+                    Clique aqui para baixar o PDF
+                  </a>
                 </div>
               </div>
             )}

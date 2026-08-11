@@ -1,52 +1,48 @@
-import initSqlJs from 'sql.js';
-import path from 'path';
-import fs from 'fs';
-import { app } from 'electron';
+import mongoose from 'mongoose';
 import { runMigrations } from './migrations.js';
 
-let db = null;
-let dbPath = '';
+let isConnected = false;
 
 export async function initDatabase() {
-  dbPath = path.join(app.getPath('userData'), 'saae.db');
-  console.log(`[Database] Initializing at: ${dbPath}`);
+  const MONGO_URI = 'mongodb+srv://saaeananas2026_db_user:jeGwNwaRSwldM3Lz@cluster0.vvibnrk.mongodb.net/saae_erp?appName=Cluster0';
   
-  const SQL = await initSqlJs();
-  
-  if (fs.existsSync(dbPath)) {
-    const fileBuffer = fs.readFileSync(dbPath);
-    db = new SQL.Database(fileBuffer);
-    console.log('[Database] Loaded existing database');
-  } else {
-    db = new SQL.Database();
-    console.log('[Database] Created new database');
+  if (isConnected) {
+    console.log('[Database] Already connected to MongoDB');
+    return mongoose.connection;
   }
+
+  console.log(`[Database] Connecting to MongoDB...`);
   
-  db.run('PRAGMA foreign_keys = ON');
-  runMigrations(db);
-  saveDatabase();
-  
-  console.log('[Database] Initialized successfully');
-  return db;
+  try {
+    await mongoose.connect(MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
+    });
+    
+    isConnected = true;
+    console.log('[Database] Connected to MongoDB successfully');
+    
+    // Roda migrations (como criar usuário padrão caso a coleção esteja vazia)
+    await runMigrations();
+    
+    return mongoose.connection;
+  } catch (error) {
+    console.error('[Database] MongoDB connection error:', error);
+    throw error;
+  }
 }
 
 export function saveDatabase() {
-  if (db && dbPath) {
-    const data = db.export();
-    const buffer = Buffer.from(data);
-    fs.writeFileSync(dbPath, buffer);
-  }
+  // No-op for MongoDB (auto-saves on model operations)
 }
 
 export function getDatabase() {
-  return db;
+  return mongoose.connection;
 }
 
 export function closeDatabase() {
-  if (db) {
-    saveDatabase();
-    db.close();
-    db = null;
-    console.log('[Database] Closed');
+  if (isConnected) {
+    mongoose.connection.close();
+    isConnected = false;
+    console.log('[Database] Closed MongoDB connection');
   }
 }

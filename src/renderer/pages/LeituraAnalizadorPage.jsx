@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import './LeituraPages.css';
 
 function LeituraAnalizadorPage() {
-  const [anomalias] = useState([
-    { uc: '104592-8', nome: 'João da Silva Sauro', media: 12, leitura: 45, tipo: 'Consumo Elevado', status: 'alerta' },
-    { uc: '293847-1', nome: 'Maria Antonieta Paz', media: 20, leitura: 0, tipo: 'Hidrômetro Parado', status: 'alerta' },
-    { uc: '482910-5', nome: 'Condomínio Águas Claras', media: 1200, leitura: 1250, tipo: 'Vazamento?', status: 'pendente' }
-  ]);
+  const [anomalias] = useState([]);
 
   return (
     <div className="leitura-page-container">
@@ -43,25 +39,33 @@ function LeituraAnalizadorPage() {
               </tr>
             </thead>
             <tbody>
-              {anomalias.map((item, i) => (
-                <tr key={i}>
-                  <td><strong>{item.uc}</strong></td>
-                  <td>{item.nome}</td>
-                  <td>{item.media}</td>
-                  <td><strong style={{color: 'var(--color-danger)'}}>{item.leitura}</strong></td>
-                  <td>
-                    <span className={`badge-status ${item.status}`}>
-                      {item.tipo}
-                    </span>
-                  </td>
-                  <td>
-                    <div style={{display: 'flex', gap: '8px'}}>
-                      <button className="btn-leitura secondary" style={{padding: '6px 12px', fontSize: '0.85rem'}}>Editar</button>
-                      <button className="btn-leitura primary" style={{padding: '6px 12px', fontSize: '0.85rem'}}>Confirmar</button>
-                    </div>
+              {anomalias.length === 0 ? (
+                <tr>
+                  <td colSpan="6" style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>
+                    Nenhuma anomalia detectada no momento.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                anomalias.map((item, i) => (
+                  <tr key={i}>
+                    <td><strong>{item.uc}</strong></td>
+                    <td>{item.nome}</td>
+                    <td>{item.media}</td>
+                    <td><strong style={{color: 'var(--color-danger)'}}>{item.leitura}</strong></td>
+                    <td>
+                      <span className={`badge-status ${item.status}`}>
+                        {item.tipo}
+                      </span>
+                    </td>
+                    <td>
+                      <div style={{display: 'flex', gap: '8px'}}>
+                        <button className="btn-leitura secondary" style={{padding: '6px 12px', fontSize: '0.85rem'}}>Editar</button>
+                        <button className="btn-leitura primary" style={{padding: '6px 12px', fontSize: '0.85rem'}}>Confirmar</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
