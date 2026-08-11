@@ -8,6 +8,8 @@ export default defineConfig({
         'sql.js',
         'bcryptjs',
         'uuid',
+        'mongoose',
+        'mongodb',
         'electron-squirrel-startup',
         'path',
         'fs',

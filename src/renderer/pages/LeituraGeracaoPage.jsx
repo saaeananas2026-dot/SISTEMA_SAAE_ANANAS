@@ -3,12 +3,7 @@ import './LeituraPages.css';
 
 function LeituraGeracaoPage() {
   const [showModal, setShowModal] = useState(false);
-  const [rotas, setRotas] = useState([
-    { id: 'R001', setor: 'Centro', quadras: 15, unidades: 450, status: 'pendente' },
-    { id: 'R002', setor: 'Bairro das Flores', quadras: 22, unidades: 680, status: 'pendente' },
-    { id: 'R003', setor: 'Jardim América', quadras: 18, unidades: 520, status: 'concluido' },
-    { id: 'R004', setor: 'Vila Nova', quadras: 10, unidades: 290, status: 'pendente' }
-  ]);
+  const [rotas, setRotas] = useState([]);
 
   const handleGerarRota = (e) => {
     e.preventDefault();
@@ -63,24 +58,32 @@ function LeituraGeracaoPage() {
               </tr>
             </thead>
             <tbody>
-              {rotas.map((rota, i) => (
-                <tr key={i}>
-                  <td><strong>{rota.id}</strong></td>
-                  <td>{rota.setor}</td>
-                  <td>{rota.quadras}</td>
-                  <td>{rota.unidades}</td>
-                  <td>
-                    <span className={`badge-status ${rota.status}`}>
-                      {rota.status === 'pendente' ? 'Pendente' : 'Gerado'}
-                    </span>
-                  </td>
-                  <td>
-                    <button className="btn-leitura secondary" style={{padding: '6px 12px', fontSize: '0.85rem'}}>
-                      Visualizar
-                    </button>
+              {rotas.length === 0 ? (
+                <tr>
+                  <td colSpan="6" style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>
+                    Nenhuma rota gerada no momento.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                rotas.map((rota, i) => (
+                  <tr key={i}>
+                    <td><strong>{rota.id}</strong></td>
+                    <td>{rota.setor}</td>
+                    <td>{rota.quadras}</td>
+                    <td>{rota.unidades}</td>
+                    <td>
+                      <span className={`badge-status ${rota.status}`}>
+                        {rota.status === 'pendente' ? 'Pendente' : 'Gerado'}
+                      </span>
+                    </td>
+                    <td>
+                      <button className="btn-leitura secondary" style={{padding: '6px 12px', fontSize: '0.85rem'}}>
+                        Visualizar
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
