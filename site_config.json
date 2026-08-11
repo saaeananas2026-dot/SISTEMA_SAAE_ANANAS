@@ -1,0 +1,51 @@
+{
+  "theme": {
+    "primary": "#0f4b9c",
+    "primaryDark": "#072a5a",
+    "primaryLight": "#1967d2",
+    "logoUrl": ""
+  },
+  "hero": {
+    "title": "ECONOMIZE HOJE PARA NÃO FALTAR AMANHÃ.",
+    "subtitle": "ÁGUA É VIDA.",
+    "text": "Use a água com consciência. Preserve esse bem essencial.",
+    "bgUrl": "https://images.unsplash.com/photo-1541888037375-403487c02bbf?auto=format&fit=crop&w=1920&q=80",
+    "slides": [
+      {
+        "bgUrl": "http://localhost:3000/uploads/1785123237133_ChatGPTImage27dejul.de2026001725.png",
+        "subtitle": "ÁGUA É VIDA",
+        "title": "ECONOMIZE HOJE PARA NÃO FALTAR AMANHÃ.",
+        "text": "Use a água com consciência. Preserve esse bem essencial.",
+        "titleColor": "#ffffff",
+        "titleSize": "2.5rem",
+        "subtitleSize": "default",
+        "subtitleFont": "'Roboto', sans-serif"
+      },
+      {},
+      {}
+    ]
+  },
+  "footer": {
+    "about": "Nosso compromisso é com você e com o futuro. Água tratada, responsabilidade e respeito à vida.",
+    "phone1": "(63) 99999-0000",
+    "phone2": "(63) 3333-0000",
+    "email": "atendimento@saae.to.gov.br",
+    "address": "AV. Betel, 123 - Centro, Ananás - TO"
+  },
+  "avisos": [
+    {
+      "id": 1,
+      "type": "warning",
+      "title": "Manutenção programada na rede",
+      "text": "Bairro Centro - 22/07 das 13h às 17h"
+    }
+  ],
+  "noticias": [
+    {
+      "id": 1,
+      "title": "Dicas para consumo consciente de água",
+      "text": "Pequenas atitudes que fazem a diferença no futuro.",
+      "date": "20 de julho de 2026"
+    }
+  ]
+}

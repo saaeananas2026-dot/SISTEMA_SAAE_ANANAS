@@ -1,0 +1,89 @@
+/* ============================================
+   HYDROMETER PAGE (HIDRÔMETRO)
+   ============================================ */
+
+.hidrometro-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  animation: fadeIn 0.3s ease;
+}
+
+.photo-placeholder {
+  width: 140px;
+  height: 160px;
+  background: var(--color-bg);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  gap: var(--space-sm);
+}
+
+.photo-placeholder svg {
+  width: 40px;
+  height: 40px;
+  opacity: 0.5;
+}
+
+.sub-panel {
+  background: #F8FAFC;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+.inner-tabs-small {
+  display: flex;
+  gap: 2px;
+  margin-bottom: -1px;
+}
+
+.inner-tab-small {
+  padding: 6px 15px;
+  background: #E3E8EF;
+  border: 1px solid var(--color-border-light);
+  border-bottom: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.inner-tab-small.active {
+  background: white;
+  color: var(--color-primary);
+  border-top: 2px solid var(--color-primary);
+}
+
+.form-box {
+  background: white;
+  border: 1px solid var(--color-border-light);
+  padding: var(--space-lg);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) var(--radius-sm);
+}
+
+.action-card-mini {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.action-card-mini:hover {
+  background: #e2e8f0;
+  border-color: var(--color-primary);
+}

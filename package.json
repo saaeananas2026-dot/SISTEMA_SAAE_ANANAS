@@ -1,0 +1,44 @@
+{
+  "name": "saae-erp",
+  "productName": "SAAE ERP",
+  "version": "1.0.0",
+  "description": "Sistema Integrado SAAE - Gestão Inteligente de Água e Esgoto",
+  "main": ".vite/build/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "web": "vite --config vite.renderer.config.mjs",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo lint"
+  },
+  "keywords": [
+    "saae",
+    "erp",
+    "agua",
+    "esgoto",
+    "saneamento"
+  ],
+  "author": "SAAE Ananindeua",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "ip": "^2.0.1",
+    "recharts": "^3.8.1",
+    "sql.js": "^1.11.0",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.6.0",
+    "@electron-forge/maker-squirrel": "^7.6.0",
+    "@electron-forge/maker-zip": "^7.6.0",
+    "@electron-forge/plugin-vite": "^7.6.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^33.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.1"
+  }
+}
