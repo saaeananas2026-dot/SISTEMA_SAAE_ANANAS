@@ -19,7 +19,7 @@ function MainLayout({ children, user, onLogout, onNavigate, currentPage }) {
       id: 'tabelas',
       title: 'Tabelas',
       icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18"/></svg>,
-      submenus: ['Cobranças', 'Tipo de Hidrometros', 'Setorização', 'Tipo de Ordem de Serviço']
+      submenus: ['Fiscais', 'Prestadores', 'Tipo de serviço', 'Tabela de Serviços', 'Tipo de Ordem de Serviço']
     },
     {
       id: 'cadastros',
@@ -126,8 +126,10 @@ function MainLayout({ children, user, onLogout, onNavigate, currentPage }) {
                         onClick={() => {
                           if (sub === 'Unidade Consumidora') onNavigate('unidade-consumidora');
                           if (sub === 'Hidrometro') onNavigate('hidrometro');
-                          if (sub === 'Cobranças') onNavigate('cobrancas');
-                          if (sub === 'Setorização') onNavigate('setorizacao');
+                          if (sub === 'Fiscais') onNavigate('cobrancas');
+                          if (sub === 'Prestadores') onNavigate('prestadores');
+                          if (sub === 'Tipo de serviço') onNavigate('setorizacao');
+                          if (sub === 'Tabela de Serviços') onNavigate('tabela-servicos');
                           if (sub === 'Tipo de Ordem de Serviço') onNavigate('tipo-os');
                           if (sub === 'Geração') onNavigate('leitura-geracao');
                           if (sub === 'Retorno') onNavigate('leitura-retorno');
