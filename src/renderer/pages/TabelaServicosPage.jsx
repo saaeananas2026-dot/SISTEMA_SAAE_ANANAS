@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DashboardPage.css'; // Import base styles for toolbar etc if needed
 
 function TabelaServicosPage() {
   const [activeTab, setActiveTab] = useState('Cadastro');
+
+  useEffect(() => {
+    console.log("TabelaServicosPage montada com sucesso!");
+  }, []);
 
   const toolbarButtons = [
     { label: 'Novo', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg> },
