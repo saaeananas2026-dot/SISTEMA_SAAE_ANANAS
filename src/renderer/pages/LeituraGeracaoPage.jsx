@@ -1,145 +1,222 @@
-import React, { useState } from 'react';
-import './LeituraPages.css';
+import React from 'react';
 
 function LeituraGeracaoPage() {
-  const [showModal, setShowModal] = useState(false);
-  const [rotas, setRotas] = useState([]);
-
-  const handleGerarRota = (e) => {
-    e.preventDefault();
-    // Simulação de adição de nova rota
-    const formData = new FormData(e.target);
-    const setor = formData.get('setor');
-    const novaRota = {
-      id: `R00${rotas.length + 1}`,
-      setor: setor === 'Todos' ? 'Geral' : setor,
-      quadras: Math.floor(Math.random() * 20) + 5,
-      unidades: Math.floor(Math.random() * 500) + 100,
-      status: 'concluido'
-    };
-    setRotas([novaRota, ...rotas]);
-    setShowModal(false);
-  };
+  const inputStyle = { padding: '2px 4px', border: '1px solid #CBD5E1', backgroundColor: '#FFF', fontSize: '0.75rem', fontFamily: 'inherit', height: '22px', boxSizing: 'border-box' };
+  const labelStyle = { fontSize: '0.7rem', color: '#334155', fontFamily: 'inherit', marginBottom: '2px', display: 'block' };
+  const groupStyle = { border: '1px solid #CBD5E1', padding: '6px', backgroundColor: '#F8FAFC', position: 'relative', marginTop: '8px' };
+  const legendStyle = { position: 'absolute', top: '-7px', left: '8px', backgroundColor: '#F8FAFC', padding: '0 4px', fontSize: '0.7rem', color: '#64748B' };
 
   return (
-    <div className="leitura-page-container">
-      <div className="leitura-header">
-        <div>
-          <h2>Geração de Rotas de Leitura</h2>
-          <p>Gere os lotes de leitura para enviar aos leituristas.</p>
-        </div>
-        <div className="leitura-actions">
-          <button className="btn-leitura primary" onClick={() => setShowModal(true)}>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            Gerar Novas Rotas
-          </button>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#F8FAFC' }}>
+      
+      {/* HEADER */}
+      <div style={{ backgroundColor: '#0D47A1', color: '#FFF', padding: '6px 12px', fontSize: '0.9rem', fontWeight: 'bold' }}>
+        Geração de Arquivo para Emissão Simultânea
       </div>
 
-      <div className="leitura-card">
-        <div className="leitura-toolbar">
-          <div className="search-box">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--color-text-muted)" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" placeholder="Buscar por setor ou ID..." />
-          </div>
-          <button className="btn-leitura secondary">Filtrar</button>
-        </div>
-
-        <div className="table-wrapper">
-          <table className="leitura-table">
-            <thead>
-              <tr>
-                <th>ID da Rota</th>
-                <th>Setor</th>
-                <th>Qtd Quadras</th>
-                <th>Qtd Unidades</th>
-                <th>Status da Geração</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rotas.length === 0 ? (
-                <tr>
-                  <td colSpan="6" style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>
-                    Nenhuma rota gerada no momento.
-                  </td>
-                </tr>
-              ) : (
-                rotas.map((rota, i) => (
-                  <tr key={i}>
-                    <td><strong>{rota.id}</strong></td>
-                    <td>{rota.setor}</td>
-                    <td>{rota.quadras}</td>
-                    <td>{rota.unidades}</td>
-                    <td>
-                      <span className={`badge-status ${rota.status}`}>
-                        {rota.status === 'pendente' ? 'Pendente' : 'Gerado'}
-                      </span>
-                    </td>
-                    <td>
-                      <button className="btn-leitura secondary" style={{padding: '6px 12px', fontSize: '0.85rem'}}>
-                        Visualizar
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {showModal && (
-        <div className="leitura-modal-overlay">
-          <div className="leitura-modal">
-            <div className="leitura-modal-header">
-              <h3>Gerar Novas Rotas</h3>
-              <button className="leitura-modal-close" onClick={() => setShowModal(false)}>&times;</button>
+      {/* CONTENT */}
+      <div style={{ flex: 1, padding: '8px', overflowY: 'auto' }}>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          
+          {/* LEFT COLUMN */}
+          <div style={{ flex: 1 }}>
+            
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+              <div>
+                <label style={labelStyle}>Tipo de Geração do Arquivo</label>
+                <select style={{ ...inputStyle, width: '150px' }}><option>Único</option><option>Dividido</option></select>
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={labelStyle}>Ordenação</label>
+                <select style={{ ...inputStyle, width: '100%' }}><option>Logradouro/Complemento</option></select>
+              </div>
             </div>
-            <form onSubmit={handleGerarRota}>
-              <div className="leitura-form-group">
-                <label>Mês/Ano de Referência</label>
-                <input type="month" name="referencia" className="leitura-form-control" defaultValue="2026-05" required />
-              </div>
-              
-              <div className="leitura-form-group">
-                <label>Setor / Zona</label>
-                <select name="setor" className="leitura-form-control" required>
-                  <option value="Todos">Todos os Setores (Geração em Massa)</option>
-                  <option value="Centro">Centro</option>
-                  <option value="Bairro das Flores">Bairro das Flores</option>
-                  <option value="Jardim América">Jardim América</option>
-                  <option value="Vila Nova">Vila Nova</option>
-                </select>
-              </div>
 
-              <div className="leitura-form-group">
-                <label>Atribuir Leiturista (Opcional)</label>
-                <select name="leiturista" className="leitura-form-control">
-                  <option value="">Atribuição Automática</option>
-                  <option value="Carlos Mendes">Carlos Mendes</option>
-                  <option value="Ana Souza">Ana Souza</option>
-                  <option value="Roberto Alves">Roberto Alves</option>
-                </select>
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <div>
+                <label style={labelStyle}>Referência</label>
+                <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#0D47A1' }}>09/2026</div>
               </div>
+              <div>
+                <label style={labelStyle}>Instalação</label>
+                <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                  <input type="text" style={{ ...inputStyle, width: '80px' }} />
+                  <span style={{ fontSize: '0.7rem' }}>Até</span>
+                  <input type="text" style={{ ...inputStyle, width: '80px' }} />
+                </div>
+              </div>
+            </div>
 
-              <div className="leitura-form-group">
-                <label>Data Prevista para Início</label>
-                <input type="date" name="dataInicio" className="leitura-form-control" defaultValue="2026-05-15" required />
+            <div style={groupStyle}>
+              <div style={legendStyle}>Setor/Rota/Sequência de Leitura</div>
+              <div style={{ display: 'flex', gap: '4px', alignItems: 'center', marginTop: '4px' }}>
+                <input type="text" style={{ ...inputStyle, width: '40px' }} />
+                <input type="text" style={{ ...inputStyle, width: '40px' }} />
+                <input type="text" style={{ ...inputStyle, width: '40px' }} />
+                <span style={{ fontSize: '0.7rem', margin: '0 4px' }}>Até</span>
+                <input type="text" style={{ ...inputStyle, width: '40px' }} />
+                <input type="text" style={{ ...inputStyle, width: '40px' }} />
+                <input type="text" style={{ ...inputStyle, width: '40px' }} />
               </div>
+            </div>
 
-              <div className="leitura-modal-footer">
-                <button type="button" className="btn-leitura secondary" onClick={() => setShowModal(false)}>
-                  Cancelar
-                </button>
-                <button type="submit" className="btn-leitura primary">
-                  Processar Geração
-                </button>
+            <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={labelStyle}>Logradouro</label>
+                <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                  <input type="text" style={{ ...inputStyle, flex: 1 }} />
+                  <span style={{ fontSize: '0.7rem' }}>Até</span>
+                  <input type="text" style={{ ...inputStyle, flex: 1 }} />
+                </div>
               </div>
-            </form>
+              <div style={{ flex: 1 }}>
+                <label style={labelStyle}>Bairro</label>
+                <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                  <input type="text" style={{ ...inputStyle, flex: 1 }} />
+                  <span style={{ fontSize: '0.7rem' }}>Até</span>
+                  <input type="text" style={{ ...inputStyle, flex: 1 }} />
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+              <div style={{ width: '200px' }}>
+                <label style={labelStyle}>Setor de Vencimento</label>
+                <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                  <input type="text" style={{ ...inputStyle, width: '60px' }} />
+                  <span style={{ fontSize: '0.7rem' }}>Até</span>
+                  <input type="text" style={{ ...inputStyle, width: '60px' }} />
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
+              <div>
+                <label style={labelStyle}>Tipo de Guia</label>
+                <select style={{ ...inputStyle, width: '150px' }}><option>Ficha de Compensação</option></select>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '2px' }}>
+                <label style={{ fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold' }}>
+                  <input type="checkbox" defaultChecked /> Gerar Lançto. Cobr Registrada?
+                </label>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '8px' }}>
+              <label style={labelStyle}>Selecione o Convênio (Somente quando selecionado Ficha de Compensação)</label>
+              <select style={{ ...inputStyle, width: '100%' }}><option>BANCO DO BRASIL</option></select>
+            </div>
+
+            <div style={{ display: 'flex', gap: '16px', marginTop: '16px', fontSize: '0.7rem', color: '#334155' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label><input type="checkbox" /> Não reter conta com endereço diferente</label>
+                <label><input type="checkbox" /> Gerar apenas as contas retidas</label>
+                <label><input type="checkbox" /> Notificações <input type="text" style={{ ...inputStyle, width: '30px' }}/> / <input type="text" style={{ ...inputStyle, width: '40px' }}/></label>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label><input type="checkbox" /> Reter contas marcadas para enviar por email</label>
+                <label><input type="checkbox" /> Gerar arquivo de 2ª via</label>
+                <label><input type="checkbox" /> Notificação para corte <select style={inputStyle}><option>01/01/1900</option></select></label>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label><input type="checkbox" /> Termo de Quitação</label>
+                <label><input type="checkbox" /> Apenas repasse</label>
+              </div>
+            </div>
+
+            <div style={groupStyle}>
+              <div style={legendStyle}>Caminho/Arquivo</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginTop: '4px' }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <label style={{ width: '60px', ...labelStyle, marginBottom: 0 }}>Caminho :</label>
+                  <input type="text" defaultValue="C:\SisPalm\Carga" style={{ ...inputStyle, flex: 1 }} />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <label style={{ width: '60px', ...labelStyle, marginBottom: 0 }}>Arquivo :</label>
+                  <input type="text" defaultValue="RO0926.txt" style={{ ...inputStyle, flex: 1 }} />
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '12px' }}>
+              <div style={{ fontWeight: 'bold', fontSize: '0.75rem', marginBottom: '4px' }}>Resumo da Geração</div>
+              <div style={{ fontSize: '0.75rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div><strong>Total de Cadastros :</strong></div>
+                <div><strong>Total de Bairros :</strong></div>
+                <div><strong>Arquivos Gerados :</strong></div>
+              </div>
+            </div>
+
           </div>
+
+          {/* RIGHT COLUMN */}
+          <div style={{ width: '220px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <div style={groupStyle}>
+                <div style={legendStyle}>Hidrômetro</div>
+                <div style={{ display: 'flex', flexDirection: 'column', fontSize: '0.7rem', marginTop: '4px' }}>
+                  <label><input type="radio" name="hidro" /> Com</label>
+                  <label><input type="radio" name="hidro" /> Sem</label>
+                  <label><input type="radio" name="hidro" defaultChecked /> Todos</label>
+                </div>
+              </div>
+              <div style={groupStyle}>
+                <div style={legendStyle}>Leitura</div>
+                <div style={{ display: 'flex', flexDirection: 'column', fontSize: '0.7rem', marginTop: '4px' }}>
+                  <label><input type="radio" name="leit" /> Com</label>
+                  <label><input type="radio" name="leit" /> Sem</label>
+                  <label><input type="radio" name="leit" defaultChecked /> Todos</label>
+                </div>
+              </div>
+            </div>
+
+            <div style={groupStyle}>
+              <div style={legendStyle}>Lado</div>
+              <div style={{ display: 'flex', gap: '8px', fontSize: '0.7rem', marginTop: '4px' }}>
+                <label><input type="radio" name="lado" /> Impar</label>
+                <label><input type="radio" name="lado" /> Par</label>
+                <label><input type="radio" name="lado" defaultChecked /> Ambos</label>
+              </div>
+            </div>
+
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <label style={labelStyle}>Situações</label>
+              <select multiple style={{ ...inputStyle, height: '100px', width: '100%' }}>
+                <option>0 - LIGADO</option>
+                <option>1 - RELIGADO</option>
+              </select>
+            </div>
+
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <label style={labelStyle}>Categorias</label>
+              <select multiple style={{ ...inputStyle, height: '160px', width: '100%' }}>
+                <option>01 - RESIDENCIAL - 1</option>
+                <option>02 - RESIDENCIAL - 2</option>
+                <option>03 - RESIDENCIAL - 3</option>
+                <option>04 - COMERCIAL - 4</option>
+                <option>05 - COMERCIAL - 5</option>
+              </select>
+            </div>
+
+          </div>
+
         </div>
-      )}
+      </div>
+
+      {/* BOTTOM TOOLBAR */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', padding: '8px', backgroundColor: '#F8FAFC', borderTop: '1px solid #CBD5E1' }}>
+        <button style={{ padding: '6px 16px', backgroundColor: '#FFF', border: '1px solid #CBD5E1', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', color: '#B91C1C' }}>
+          Cancelar
+        </button>
+        <button style={{ padding: '6px 16px', backgroundColor: '#FFF', border: '1px solid #CBD5E1', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', color: '#15803D' }}>
+          Processar
+        </button>
+        <button style={{ padding: '6px 16px', backgroundColor: '#FFF', border: '1px solid #CBD5E1', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', color: '#0D47A1' }}>
+          Sair
+        </button>
+      </div>
+
     </div>
   );
 }
