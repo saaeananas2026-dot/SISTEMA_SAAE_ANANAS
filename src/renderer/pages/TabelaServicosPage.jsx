@@ -87,82 +87,97 @@ function TabelaServicosPage() {
         </div>
 
         {activeTab === 'Cadastro' && (
-          <div style={{ padding: '16px', backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', borderTop: 'none', minHeight: '400px', borderRadius: '0 0 4px 4px' }}>
-            
-            <div style={{ display: 'flex' }}>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Código da Receita</label>
-                <div style={{ display: 'flex', gap: '4px' }}>
-                  <input type="text" style={{ ...inputStyle, width: '60px' }} />
-                  <button style={{ width: '26px', height: '26px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #CBD5E1', backgroundColor: '#E2E8F0', cursor: 'pointer', borderRadius: '2px' }}>
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#334155" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                  </button>
-                  <input type="text" style={{ ...inputStyle, width: '300px' }} />
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+            <div style={{ padding: '16px', backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', borderTop: 'none', borderBottom: 'none', flex: 1, minHeight: '400px' }}>
+              
+              <div style={{ display: 'flex' }}>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Código da Receita</label>
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <input type="text" style={{ ...inputStyle, width: '60px' }} />
+                    <button style={{ width: '26px', height: '26px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #CBD5E1', backgroundColor: '#E2E8F0', cursor: 'pointer', borderRadius: '2px' }}>
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#334155" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                    <input type="text" style={{ ...inputStyle, width: '300px' }} />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div style={{ display: 'flex' }}>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Desdobro</label>
-                <input type="text" style={{ ...inputStyle, width: '120px' }} />
+              <div style={{ display: 'flex' }}>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Desdobro</label>
+                  <input type="text" style={{ ...inputStyle, width: '120px' }} />
+                </div>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Situação do Lançamento</label>
+                  <select style={{ ...inputStyle, width: '180px', padding: '0 6px' }}>
+                    <option></option>
+                  </select>
+                </div>
               </div>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Situação do Lançamento</label>
-                <select style={{ ...inputStyle, width: '180px', padding: '0 6px' }}>
-                  <option></option>
-                </select>
-              </div>
-            </div>
 
-            <div style={{ display: 'flex' }}>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Abreviatura</label>
-                <input type="text" style={{ ...inputStyle, width: '394px' }} />
+              <div style={{ display: 'flex' }}>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Abreviatura</label>
+                  <input type="text" style={{ ...inputStyle, width: '394px' }} />
+                </div>
               </div>
-            </div>
 
-            <div style={{ display: 'flex' }}>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Descrição</label>
-                <input type="text" style={{ ...inputStyle, width: '394px' }} />
+              <div style={{ display: 'flex' }}>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Descrição</label>
+                  <input type="text" style={{ ...inputStyle, width: '394px' }} />
+                </div>
               </div>
-            </div>
 
-            <div style={{ display: 'flex' }}>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Tipo do Cálculo</label>
-                <select style={{ ...inputStyle, width: '130px', padding: '0 6px' }}>
-                  <option></option>
-                </select>
+              <div style={{ display: 'flex' }}>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Tipo do Cálculo</label>
+                  <select style={{ ...inputStyle, width: '130px', padding: '0 6px' }}>
+                    <option></option>
+                  </select>
+                </div>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Limite Inf.</label>
+                  <input type="text" style={{ ...inputStyle, width: '60px' }} />
+                </div>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Limite Sup.</label>
+                  <input type="text" style={{ ...inputStyle, width: '60px' }} />
+                </div>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Valor</label>
+                  <input type="text" style={{ ...inputStyle, width: '80px' }} />
+                </div>
+                <div style={fieldGroupStyle}>
+                  <label style={labelStyle}>Tipo do Valor</label>
+                  <select style={{ ...inputStyle, width: '110px', padding: '0 6px' }}>
+                    <option></option>
+                  </select>
+                </div>
               </div>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Limite Inf.</label>
-                <input type="text" style={{ ...inputStyle, width: '60px' }} />
-              </div>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Limite Sup.</label>
-                <input type="text" style={{ ...inputStyle, width: '60px' }} />
-              </div>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Valor</label>
-                <input type="text" style={{ ...inputStyle, width: '80px' }} />
-              </div>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Tipo do Valor</label>
-                <select style={{ ...inputStyle, width: '110px', padding: '0 6px' }}>
-                  <option></option>
-                </select>
-              </div>
-            </div>
 
-            <div style={{ display: 'flex', marginTop: '12px' }}>
-              <label style={{ ...labelStyle, display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
-                <input type="checkbox" style={{ margin: 0, width: '16px', height: '16px' }} />
-                Receita Inativa ?
-              </label>
-            </div>
+              <div style={{ display: 'flex', marginTop: '12px' }}>
+                <label style={{ ...labelStyle, display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
+                  <input type="checkbox" style={{ margin: 0, width: '16px', height: '16px' }} />
+                  Receita Inativa ?
+                </label>
+              </div>
 
+            </div>
+            
+            {/* BOTTOM TOOLBAR */}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', padding: '8px', backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', borderRadius: '0 0 4px 4px' }}>
+              <button style={{ padding: '6px 16px', backgroundColor: '#FFF', border: '1px solid #CBD5E1', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', color: '#15803D' }}>
+                Confirma
+              </button>
+              <button style={{ padding: '6px 16px', backgroundColor: '#FFF', border: '1px solid #CBD5E1', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', color: '#B91C1C' }}>
+                Cancela
+              </button>
+              <button style={{ padding: '6px 16px', backgroundColor: '#FFF', border: '1px solid #CBD5E1', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold', color: '#0D47A1' }}>
+                Sair
+              </button>
+            </div>
           </div>
         )}
 
