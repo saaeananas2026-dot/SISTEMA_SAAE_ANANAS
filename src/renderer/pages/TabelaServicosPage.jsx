@@ -79,23 +79,23 @@ function TabelaServicosPage() {
       </div>
 
       {/* CONTENT */}
-      <div style={{ flex: 1, backgroundColor: '#FFF', padding: '4px' }}>
+      <div style={{ flex: 1, backgroundColor: '#FFF', padding: '8px' }}>
         
-        {/* GREEN HEADER */}
-        <div style={{ backgroundColor: '#478B7C', color: '#FFF', padding: '4px 8px', fontSize: '0.85rem', fontWeight: 'bold', fontFamily: 'Tahoma, sans-serif' }}>
+        {/* BLUE HEADER */}
+        <div style={{ backgroundColor: '#0D47A1', color: '#FFF', padding: '8px 12px', fontSize: '0.9rem', fontWeight: 'bold', fontFamily: 'inherit', borderRadius: '4px 4px 0 0' }}>
           {activeTab === 'Cadastro' ? 'Cadastro da Tabela para Cálculo' : 'Visualização Geral'}
         </div>
 
         {activeTab === 'Cadastro' && (
-          <div style={{ padding: '8px', backgroundColor: '#F0F0F0', border: '1px solid #999', borderTop: 'none', minHeight: '400px' }}>
+          <div style={{ padding: '16px', backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', borderTop: 'none', minHeight: '400px', borderRadius: '0 0 4px 4px' }}>
             
             <div style={{ display: 'flex' }}>
               <div style={fieldGroupStyle}>
                 <label style={labelStyle}>Código da Receita</label>
-                <div style={{ display: 'flex', gap: '2px' }}>
-                  <input type="text" style={{ ...inputStyle, width: '40px' }} />
-                  <button style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #999', backgroundColor: '#E0E0E0', cursor: 'pointer' }}>
-                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  <input type="text" style={{ ...inputStyle, width: '60px' }} />
+                  <button style={{ width: '26px', height: '26px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #CBD5E1', backgroundColor: '#E2E8F0', cursor: 'pointer', borderRadius: '2px' }}>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#334155" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                   </button>
                   <input type="text" style={{ ...inputStyle, width: '300px' }} />
                 </div>
@@ -105,11 +105,11 @@ function TabelaServicosPage() {
             <div style={{ display: 'flex' }}>
               <div style={fieldGroupStyle}>
                 <label style={labelStyle}>Desdobro</label>
-                <input type="text" style={{ ...inputStyle, width: '100px' }} />
+                <input type="text" style={{ ...inputStyle, width: '120px' }} />
               </div>
               <div style={fieldGroupStyle}>
                 <label style={labelStyle}>Situação do Lançamento</label>
-                <select style={{ ...inputStyle, width: '150px', padding: '0 2px' }}>
+                <select style={{ ...inputStyle, width: '180px', padding: '0 6px' }}>
                   <option></option>
                 </select>
               </div>
@@ -118,47 +118,47 @@ function TabelaServicosPage() {
             <div style={{ display: 'flex' }}>
               <div style={fieldGroupStyle}>
                 <label style={labelStyle}>Abreviatura</label>
-                <input type="text" style={{ ...inputStyle, width: '368px' }} />
+                <input type="text" style={{ ...inputStyle, width: '394px' }} />
               </div>
             </div>
 
             <div style={{ display: 'flex' }}>
               <div style={fieldGroupStyle}>
                 <label style={labelStyle}>Descrição</label>
-                <input type="text" style={{ ...inputStyle, width: '368px' }} />
+                <input type="text" style={{ ...inputStyle, width: '394px' }} />
               </div>
             </div>
 
             <div style={{ display: 'flex' }}>
               <div style={fieldGroupStyle}>
                 <label style={labelStyle}>Tipo do Cálculo</label>
-                <select style={{ ...inputStyle, width: '110px', padding: '0 2px' }}>
+                <select style={{ ...inputStyle, width: '130px', padding: '0 6px' }}>
                   <option></option>
                 </select>
               </div>
               <div style={fieldGroupStyle}>
                 <label style={labelStyle}>Limite Inf.</label>
-                <input type="text" style={{ ...inputStyle, width: '45px' }} />
-              </div>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Limite Sup.</label>
-                <input type="text" style={{ ...inputStyle, width: '45px' }} />
-              </div>
-              <div style={fieldGroupStyle}>
-                <label style={labelStyle}>Valor</label>
                 <input type="text" style={{ ...inputStyle, width: '60px' }} />
               </div>
               <div style={fieldGroupStyle}>
+                <label style={labelStyle}>Limite Sup.</label>
+                <input type="text" style={{ ...inputStyle, width: '60px' }} />
+              </div>
+              <div style={fieldGroupStyle}>
+                <label style={labelStyle}>Valor</label>
+                <input type="text" style={{ ...inputStyle, width: '80px' }} />
+              </div>
+              <div style={fieldGroupStyle}>
                 <label style={labelStyle}>Tipo do Valor</label>
-                <select style={{ ...inputStyle, width: '90px', padding: '0 2px' }}>
+                <select style={{ ...inputStyle, width: '110px', padding: '0 6px' }}>
                   <option></option>
                 </select>
               </div>
             </div>
 
-            <div style={{ display: 'flex', marginTop: '4px' }}>
-              <label style={{ ...labelStyle, display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
-                <input type="checkbox" style={{ margin: 0 }} />
+            <div style={{ display: 'flex', marginTop: '12px' }}>
+              <label style={{ ...labelStyle, display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
+                <input type="checkbox" style={{ margin: 0, width: '16px', height: '16px' }} />
                 Receita Inativa ?
               </label>
             </div>
@@ -167,22 +167,22 @@ function TabelaServicosPage() {
         )}
 
         {activeTab === 'Visualizar' && (
-          <div style={{ border: '1px solid #999', borderTop: 'none', flex: 1, backgroundColor: '#FFF', minHeight: '400px', overflowY: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.75rem', fontFamily: 'Tahoma, sans-serif' }}>
+          <div style={{ border: '1px solid #CBD5E1', borderTop: 'none', flex: 1, backgroundColor: '#FFF', minHeight: '400px', overflowY: 'auto', borderRadius: '0 0 4px 4px' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.75rem', fontFamily: 'inherit' }}>
               <thead>
                 <tr>
-                  <th style={{ width: '24px', backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC' }}></th>
-                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Código</th>
-                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Abreviatura</th>
-                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Descrição</th>
+                  <th style={{ width: '24px', backgroundColor: '#F1F5F9', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}></th>
+                  <th style={{ backgroundColor: '#F1F5F9', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', padding: '8px', textAlign: 'left', fontWeight: '600', color: '#334155' }}>Código</th>
+                  <th style={{ backgroundColor: '#F1F5F9', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', padding: '8px', textAlign: 'left', fontWeight: '600', color: '#334155' }}>Abreviatura</th>
+                  <th style={{ backgroundColor: '#F1F5F9', borderBottom: '1px solid #E2E8F0', padding: '8px', textAlign: 'left', fontWeight: '600', color: '#334155' }}>Descrição</th>
                 </tr>
               </thead>
               <tbody>
-                <tr style={{ backgroundColor: '#FFFFFF', cursor: 'pointer' }}>
-                  <td style={{ textAlign: 'center', color: '#000', fontSize: '0.65rem', borderRight: '1px solid #EEE' }}>▶</td>
-                  <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>0001</td>
-                  <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>TAXA DE LIXO</td>
-                  <td style={{ padding: '4px 6px', color: '#000' }}>TAXA DE LIXO RESIDENCIAL</td>
+                <tr style={{ backgroundColor: '#FFFFFF', cursor: 'pointer', transition: 'background-color 0.2s' }}>
+                  <td style={{ textAlign: 'center', color: '#0D47A1', fontSize: '0.65rem', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>▶</td>
+                  <td style={{ padding: '8px', color: '#334155', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>0001</td>
+                  <td style={{ padding: '8px', color: '#334155', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>TAXA DE LIXO</td>
+                  <td style={{ padding: '8px', color: '#334155', borderBottom: '1px solid #E2E8F0' }}>TAXA DE LIXO RESIDENCIAL</td>
                 </tr>
               </tbody>
             </table>

@@ -99,31 +99,31 @@ function CobrancasPage({ user, onLogout, onNavigate }) {
           </div>
         </div>
       ) : (
-        <div className="classic-table-container" style={{ border: '1px solid #999', backgroundColor: '#FFF', display: 'flex', flexDirection: 'column', flex: 1, minHeight: '400px' }}>
-          <div style={{ backgroundColor: '#206A5D', color: '#FFF', padding: '4px 8px', fontSize: '0.85rem', fontWeight: 'bold' }}>
+        <div className="classic-table-container" style={{ border: '1px solid #CBD5E1', backgroundColor: '#FFF', display: 'flex', flexDirection: 'column', flex: 1, minHeight: '400px', borderRadius: '4px', overflow: 'hidden' }}>
+          <div style={{ backgroundColor: '#0D47A1', color: '#FFF', padding: '8px 12px', fontSize: '0.85rem', fontWeight: 'bold' }}>
             Visualização Geral
           </div>
           <div style={{ flex: 1, overflowY: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.75rem', fontFamily: 'Tahoma, sans-serif' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.75rem', fontFamily: 'inherit' }}>
               <thead>
                 <tr>
-                  <th style={{ width: '24px', backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC' }}></th>
-                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Código</th>
-                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Descrição</th>
-                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Período</th>
-                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Nro. Lei</th>
-                  <th style={{ backgroundColor: '#F0F0F0', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Sorteio</th>
+                  <th style={{ width: '24px', backgroundColor: '#F1F5F9', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}></th>
+                  <th style={{ backgroundColor: '#F1F5F9', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', padding: '6px 8px', textAlign: 'left', fontWeight: '600', color: '#334155' }}>Código</th>
+                  <th style={{ backgroundColor: '#F1F5F9', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', padding: '6px 8px', textAlign: 'left', fontWeight: '600', color: '#334155' }}>Descrição</th>
+                  <th style={{ backgroundColor: '#F1F5F9', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', padding: '6px 8px', textAlign: 'left', fontWeight: '600', color: '#334155' }}>Período</th>
+                  <th style={{ backgroundColor: '#F1F5F9', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', padding: '6px 8px', textAlign: 'left', fontWeight: '600', color: '#334155' }}>Nro. Lei</th>
+                  <th style={{ backgroundColor: '#F1F5F9', borderBottom: '1px solid #E2E8F0', padding: '6px 8px', textAlign: 'left', fontWeight: '600', color: '#334155' }}>Sorteio</th>
                 </tr>
               </thead>
               <tbody>
                 {tableData.map((row, index) => (
-                  <tr key={row.codigo} style={{ backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#E8F5E9', cursor: 'pointer' }}>
-                    <td style={{ textAlign: 'center', color: '#000', fontSize: '0.65rem', borderRight: '1px solid #EEE' }}>{index === 0 ? '▶' : ''}</td>
-                    <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>{String(row.codigo).padStart(4, '0')}</td>
-                    <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>{row.descricao}</td>
-                    <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>{row.periodo}</td>
-                    <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>{row.lei}</td>
-                    <td style={{ padding: '4px 6px', color: '#000' }}>{row.sorteio}</td>
+                  <tr key={row.codigo} style={{ backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#F8FAFC', cursor: 'pointer', transition: 'background-color 0.2s' }}>
+                    <td style={{ textAlign: 'center', color: '#0D47A1', fontSize: '0.65rem', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>{index === 0 ? '▶' : ''}</td>
+                    <td style={{ padding: '6px 8px', color: '#334155', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>{String(row.codigo).padStart(4, '0')}</td>
+                    <td style={{ padding: '6px 8px', color: '#334155', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>{row.descricao}</td>
+                    <td style={{ padding: '6px 8px', color: '#334155', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>{row.periodo}</td>
+                    <td style={{ padding: '6px 8px', color: '#334155', borderRight: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>{row.lei}</td>
+                    <td style={{ padding: '6px 8px', color: '#334155', borderBottom: '1px solid #E2E8F0' }}>{row.sorteio}</td>
                   </tr>
                 ))}
               </tbody>
