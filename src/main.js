@@ -49,8 +49,14 @@ const createWindow = () => {
 };
 
 app.whenReady().then(async () => {
-  const db = await initDatabase();
-  registerIpcHandlers(db);
+  try {
+    const db = await initDatabase();
+    registerIpcHandlers(db);
+  } catch (error) {
+    console.error('[App] Failed to initialize database. Starting without DB connection:', error);
+    // Continue to register IPC handlers with null db so app doesn't crash on IPC calls
+    registerIpcHandlers(null);
+  }
   startLocalServer();
   createWindow();
 

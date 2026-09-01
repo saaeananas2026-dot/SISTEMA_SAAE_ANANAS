@@ -80,13 +80,15 @@ function CobrancasPage({ user, onLogout, onNavigate }) {
               <table className="results-table">
                 <thead>
                   <tr>
-                    <th>Cód. Receita</th>
+                    <th>Cód.</th>
+                    <th>Receita</th>
                     <th>Gerar Lançamento</th>
                     <th>Porcentagem</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr style={{ height: '40px' }}>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -97,29 +99,36 @@ function CobrancasPage({ user, onLogout, onNavigate }) {
           </div>
         </div>
       ) : (
-        <div className="results-container">
-          <table className="results-table">
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Período</th>
-                <th>Descrição</th>
-                <th>Nro. Lei</th>
-                <th>Sorteio</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tableData.map((row) => (
-                <tr key={row.codigo}>
-                  <td>{row.codigo}</td>
-                  <td>{row.periodo}</td>
-                  <td>{row.descricao}</td>
-                  <td>{row.lei}</td>
-                  <td>{row.sorteio}</td>
+        <div className="classic-table-container" style={{ border: '1px solid #999', backgroundColor: '#FFF', display: 'flex', flexDirection: 'column', flex: 1, minHeight: '400px' }}>
+          <div style={{ backgroundColor: '#206A5D', color: '#FFF', padding: '4px 8px', fontSize: '0.85rem', fontWeight: 'bold' }}>
+            Visualização Geral
+          </div>
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.75rem', fontFamily: 'Tahoma, sans-serif' }}>
+              <thead>
+                <tr>
+                  <th style={{ width: '24px', backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC' }}></th>
+                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Código</th>
+                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Descrição</th>
+                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Período</th>
+                  <th style={{ backgroundColor: '#F0F0F0', borderRight: '1px solid #CCC', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Nro. Lei</th>
+                  <th style={{ backgroundColor: '#F0F0F0', borderBottom: '1px solid #CCC', padding: '4px 6px', textAlign: 'left', fontWeight: 'normal', color: '#000' }}>Sorteio</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {tableData.map((row, index) => (
+                  <tr key={row.codigo} style={{ backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#E8F5E9', cursor: 'pointer' }}>
+                    <td style={{ textAlign: 'center', color: '#000', fontSize: '0.65rem', borderRight: '1px solid #EEE' }}>{index === 0 ? '▶' : ''}</td>
+                    <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>{String(row.codigo).padStart(4, '0')}</td>
+                    <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>{row.descricao}</td>
+                    <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>{row.periodo}</td>
+                    <td style={{ padding: '4px 6px', color: '#000', borderRight: '1px solid #EEE' }}>{row.lei}</td>
+                    <td style={{ padding: '4px 6px', color: '#000' }}>{row.sorteio}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

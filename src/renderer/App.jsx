@@ -17,6 +17,7 @@ import FaturaCalculoPage from './pages/FaturaCalculoPage.jsx';
 import FaturaImpressaoPage from './pages/FaturaImpressaoPage.jsx';
 import FaturaRefaturamentoPage from './pages/FaturaRefaturamentoPage.jsx';
 import GestaoSitePage from './pages/GestaoSitePage.jsx';
+import TabelaServicosPage from './pages/TabelaServicosPage.jsx';
 import MainLayout from './components/MainLayout.jsx';
 
 function App() {
@@ -98,6 +99,8 @@ function App() {
         return <CobrancasPage user={currentUser} onLogout={handleLogout} onNavigate={handleNavigate} />;
       case 'setorizacao':
         return <SetorizacaoPage user={currentUser} onLogout={handleLogout} onNavigate={handleNavigate} />;
+      case 'tabela-servicos':
+        return <TabelaServicosPage user={currentUser} onLogout={handleLogout} onNavigate={handleNavigate} />;
       case 'tipo-os':
         return <TipoOrdemServicoPage user={currentUser} onLogout={handleLogout} onNavigate={handleNavigate} />;
       case 'leitura-geracao':
